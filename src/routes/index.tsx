@@ -514,7 +514,7 @@ function Footer() {
               E-post
             </a>
             <a
-              href="tel:+46762260232"
+              href="tel:+46762629606"
               className="text-sm text-muted-foreground transition-colors hover:text-gold"
             >
               Telefon
