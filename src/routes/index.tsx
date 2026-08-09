@@ -337,16 +337,17 @@ function Contact() {
     setErrors({});
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) {
+    if (errors[field as "name" | "email" | "message"]) {
       setErrors((prev) => {
         const next = { ...prev };
-        delete next[field];
+        delete next[field as "name" | "email" | "message"];
         return next;
       });
     }
   };
+
 
   return (
     <section id="contact" className="bg-obsidian px-6 py-20 sm:px-8 sm:py-28">
