@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiCalendlyBookRouteImport } from './routes/api/calendly/book'
+import { Route as ApiCalendlyEventTypesRouteImport } from './routes/api/calendly/event-types'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCalendlyBookRoute = ApiCalendlyBookRouteImport.update({
+  id: '/api/calendly/book',
+  path: '/api/calendly/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCalendlyEventTypesRoute = ApiCalendlyEventTypesRouteImport.update({
+  id: '/api/calendly/event-types',
+  path: '/api/calendly/event-types',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/calendly/book': typeof ApiCalendlyBookRoute
+  '/api/calendly/event-types': typeof ApiCalendlyEventTypesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/calendly/book': typeof ApiCalendlyBookRoute
+  '/api/calendly/event-types': typeof ApiCalendlyEventTypesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/calendly/book': typeof ApiCalendlyBookRoute
+  '/api/calendly/event-types': typeof ApiCalendlyEventTypesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/calendly/book' | '/api/calendly/event-types'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/calendly/book' | '/api/calendly/event-types'
+  id: '__root__' | '/' | '/api/calendly/book' | '/api/calendly/event-types'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiCalendlyBookRoute: typeof ApiCalendlyBookRoute
+  ApiCalendlyEventTypesRoute: typeof ApiCalendlyEventTypesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +68,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/calendly/book': {
+      id: '/api/calendly/book'
+      path: '/api/calendly/book'
+      fullPath: '/api/calendly/book'
+      preLoaderRoute: typeof ApiCalendlyBookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/calendly/event-types': {
+      id: '/api/calendly/event-types'
+      path: '/api/calendly/event-types'
+      fullPath: '/api/calendly/event-types'
+      preLoaderRoute: typeof ApiCalendlyEventTypesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiCalendlyBookRoute: ApiCalendlyBookRoute,
+  ApiCalendlyEventTypesRoute: ApiCalendlyEventTypesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
