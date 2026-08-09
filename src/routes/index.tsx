@@ -11,8 +11,11 @@ import {
   CalendarCheck,
   Clock,
   ExternalLink,
+  Send,
+  CheckCircle2,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useState, type FormEvent } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -285,53 +288,209 @@ function Booking() {
 }
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Namn är obligatoriskt";
+    if (!formData.email.trim()) {
+      newErrors.email = "E-post är obligatoriskt";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Ange en giltig e-postadress";
+    }
+    if (!formData.message.trim()) newErrors.message = "Meddelande är obligatoriskt";
+    return newErrors;
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    const subject = encodeURIComponent(
+      `Kontaktförfrågan från ${formData.name}${formData.company ? `, ${formData.company}` : ""}`
+    );
+    const body = encodeURIComponent(
+      `Hej Fardowsa!\n\n` +
+        `Namn: ${formData.name}\n` +
+        `Företag: ${formData.company || "-"}\n` +
+        `E-post: ${formData.email}\n` +
+        `Telefon: ${formData.phone || "-"}\n\n` +
+        `Meddelande:\n${formData.message}\n\n` +
+        `Med vänliga hälsningar,\n${formData.name}`
+    );
+
+    window.location.href = `mailto:fardowsa@afnan.se?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+    setErrors({});
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
   return (
-    <section className="bg-obsidian px-6 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-          Låt oss prata
-        </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Har du ett företag som behöver hjälp med Google Ads eller marknadsföring? Kontakta
-          mig så bokar vi ett första samtal.
-        </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="mailto:fardowsa@afnan.se"
-            className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-card px-6 py-5 text-left transition-all hover:border-gold/50 hover:shadow-md sm:w-auto"
-          >
-            <div className="rounded-full bg-primary/10 p-3 text-primary">
-              <Mail className="h-5 w-5" />
+    <section id="contact" className="bg-obsidian px-6 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-5xl">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Låt oss prata
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Har du ett företag som behöver hjälp med Google Ads eller marknadsföring? Fyll i
+              formuläret så hör jag av mig inom 24 timmar.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4">
+              <a
+                href="mailto:fardowsa@afnan.se"
+                className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-4 transition-all hover:border-gold/50 hover:shadow-md"
+              >
+                <div className="rounded-full bg-primary/10 p-3 text-primary">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    E-post
+                  </p>
+                  <p className="font-medium text-ink">fardowsa@afnan.se</p>
+                </div>
+              </a>
+              <a
+                href="tel:+46762260232"
+                className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-4 transition-all hover:border-gold/50 hover:shadow-md"
+              >
+                <div className="rounded-full bg-primary/10 p-3 text-primary">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Telefon
+                  </p>
+                  <p className="font-medium text-ink">076-226 02 32</p>
+                </div>
+              </a>
             </div>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                E-post
-              </p>
-              <p className="font-medium text-ink">fardowsa@afnan.se</p>
-            </div>
-          </a>
-          <a
-            href="tel:+46762260232"
-            className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-card px-6 py-5 text-left transition-all hover:border-gold/50 hover:shadow-md sm:w-auto"
-          >
-            <div className="rounded-full bg-primary/10 p-3 text-primary">
-              <Phone className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Telefon
-              </p>
-              <p className="font-medium text-ink">076-226 02 32</p>
-            </div>
-          </a>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            {submitted ? (
+              <div className="contact-success">
+                <CheckCircle2 className="h-5 w-5 shrink-0" />
+                <div>
+                  <p className="font-medium">Tack för ditt meddelande!</p>
+                  <p className="mt-0.5 text-sm opacity-90">
+                    Din e-postapp öppnas nu. Mejla gärna direkt till fardowsa@afnan.se om inget händer.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="contact-label">
+                      Namn *
+                    </label>
+                    <input
+                      id="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                      placeholder="Ditt namn"
+                      className="contact-input"
+                    />
+                    {errors.name && <p className="contact-error">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="contact-label">
+                      E-post *
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      placeholder="namn@foretag.se"
+                      className="contact-input"
+                    />
+                    {errors.email && <p className="contact-error">{errors.email}</p>}
+                  </div>
+                </div>
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="company" className="contact-label">
+                      Företag
+                    </label>
+                    <input
+                      id="company"
+                      type="text"
+                      value={formData.company}
+                      onChange={(e) => handleChange("company", e.target.value)}
+                      placeholder="Ditt företag"
+                      className="contact-input"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="contact-label">
+                      Telefon
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                      placeholder="070-123 45 67"
+                      className="contact-input"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="contact-label">
+                    Meddelande *
+                  </label>
+                  <textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => handleChange("message", e.target.value)}
+                    placeholder="Berätta kort om ditt företag och vad du behöver hjälp med..."
+                    rows={5}
+                    className="contact-input resize-none"
+                  />
+                  {errors.message && <p className="contact-error">{errors.message}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 hover:glow-gold sm:w-auto"
+                >
+                  <Send className="h-4 w-4" />
+                  Skicka meddelande
+                </button>
+              </form>
+            )}
+          </div>
         </div>
-        <a
-          href="mailto:fardowsa@afnan.se?subject=Intresse%20f%C3%B6r%20Google%20Ads%20%26%20marknadsf%C3%B6ringshj%C3%A4lp"
-          className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-gold transition-colors hover:text-primary"
-        >
-          Skicka ett meddelande direkt
-          <ArrowRight className="h-4 w-4" />
-        </a>
       </div>
     </section>
   );
