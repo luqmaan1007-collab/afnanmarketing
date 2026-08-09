@@ -88,6 +88,13 @@
   }
 }
 
+#lovable-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 @utility text-balance {
   text-wrap: balance;
 }
@@ -112,3 +119,51 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }
+
+@utility contact-input {
+  width: 100%;
+  border-radius: calc(var(--radius) + 4px);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--color-foreground);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: var(--color-muted-foreground);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-gold) 20%, transparent);
+  }
+}
+
+@utility contact-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+@utility contact-error {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--color-destructive);
+}
+
+@utility contact-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: calc(var(--radius) + 4px);
+  border: 1px solid color-mix(in oklab, var(--color-gold) 30%, transparent);
+  background-color: color-mix(in oklab, var(--color-gold) 10%, transparent);
+  padding: 1rem;
+  font-size: 0.9375rem;
+  color: var(--color-gold);
+}
+
