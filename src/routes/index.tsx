@@ -295,11 +295,11 @@ function Contact() {
     phone: "",
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "message", string>>>({});
   const [submitted, setSubmitted] = useState(false);
 
   const validate = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors: Partial<Record<"name" | "email" | "message", string>> = {};
     if (!formData.name.trim()) newErrors.name = "Namn är obligatoriskt";
     if (!formData.email.trim()) {
       newErrors.email = "E-post är obligatoriskt";
@@ -309,6 +309,7 @@ function Contact() {
     if (!formData.message.trim()) newErrors.message = "Meddelande är obligatoriskt";
     return newErrors;
   };
+
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
