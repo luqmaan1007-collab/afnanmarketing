@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Fardowsa Afnan är en marknadsföringskonsult specialiserad på Google Ads, marknadsstrategi och varumärkesbyggande. Boka ett gratis upptäckningssamtal eller kontakta mig på fardowsa@afnan.se / 076-226 02 32.",
+          "Fardowsa Afnan är en marknadsföringskonsult specialiserad på Google Ads, marknadsstrategi och varumärkesbyggande. Boka ett gratis upptäckningssamtal eller kontakta mig på fardowsa@afnan.se / 076-262 96 06.",
       },
       {
         property: "og:title",
@@ -83,11 +83,11 @@ function Hero() {
                 Boka ett upptäckningssamtal
               </a>
               <a
-                href="tel:+46762260232"
+                href="tel:+46762629606"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-all hover:border-gold/50 hover:text-gold"
               >
                 <Phone className="h-4 w-4" />
-                076-226 02 32
+                076-262 96 06
               </a>
             </div>
           </div>
@@ -238,11 +238,11 @@ function Booking() {
                 Mejla mig
               </a>
               <a
-                href="tel:+46762260232"
+                href="tel:+46762629606"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground"
               >
                 <Phone className="h-4 w-4" />
-                076-226 02 32
+                076-262 96 06
               </a>
             </div>
           </div>
@@ -378,7 +378,7 @@ function Contact() {
                 </div>
               </a>
               <a
-                href="tel:+46762260232"
+                href="tel:+46762629606"
                 className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-4 transition-all hover:border-gold/50 hover:shadow-md"
               >
                 <div className="rounded-full bg-primary/10 p-3 text-primary">
@@ -388,7 +388,7 @@ function Contact() {
                   <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Telefon
                   </p>
-                  <p className="font-medium text-ink">076-226 02 32</p>
+                  <p className="font-medium text-ink">076-262 96 06</p>
                 </div>
               </a>
             </div>
@@ -514,7 +514,7 @@ function Footer() {
               E-post
             </a>
             <a
-              href="tel:+46762260232"
+              href="tel:+46762629606"
               className="text-sm text-muted-foreground transition-colors hover:text-gold"
             >
               Telefon
