@@ -77,16 +77,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Fardowsa Afnan — Marknadsföringskonsult" },
+      { title: "Fardowsa — Marknadsföringskonsult" },
       {
         name: "description",
         content:
-          "Fardowsa Afnan är en marknadsföringskonsult som hjälper företag att växa med strategi, varumärke och digital marknadsföring.",
+          "Fardowsa är en marknadsföringskonsult som hjälper företag att växa med strategi, varumärke och digital marknadsföring.",
       },
-      { name: "author", content: "Fardowsa Afnan" },
+      { name: "author", content: "Fardowsa" },
       {
         property: "og:title",
-        content: "Fardowsa Afnan — Marknadsföringskonsult",
+        content: "Fardowsa — Marknadsföringskonsult",
       },
       {
         property: "og:description",

@@ -20,15 +20,15 @@ import { useState, type FormEvent } from "react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Fardowsa Afnan — Marknadsföringskonsult | Google Ads & Strategi" },
+      { title: "Fardowsa — Marknadsföringskonsult | Google Ads & Strategi" },
       {
         name: "description",
         content:
-          "Fardowsa Afnan är en marknadsföringskonsult specialiserad på Google Ads, marknadsstrategi och varumärkesbyggande. Boka ett gratis upptäckningssamtal eller kontakta mig på fardowsa@afnan.se / 076-262 96 06.",
+          "Fardowsa är en marknadsföringskonsult specialiserad på Google Ads, marknadsstrategi och varumärkesbyggande. Boka ett gratis upptäckningssamtal eller kontakta mig på fardowsa@afnan.se / 076-262 96 06.",
       },
       {
         property: "og:title",
-        content: "Fardowsa Afnan — Marknadsföringskonsult | Google Ads & Strategi",
+        content: "Fardowsa — Marknadsföringskonsult | Google Ads & Strategi",
       },
       {
         property: "og:description",
@@ -69,7 +69,7 @@ function Hero() {
               Fler kunder med Google Ads & smart marknadsföring
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Jag är Fardowsa Afnan, marknadsföringskonsult med specialisering inom
+              Jag är Fardowsa, marknadsföringskonsult med specialisering inom
               Google Ads, digital strategi och varumärkesbyggande. Jag hjälper företag
               att synas för rätt målgrupp, driva kvalificerad trafik och omvandla klick
               till affärer.
@@ -504,7 +504,7 @@ function Footer() {
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Fardowsa Afnan. Alla rättigheter förbehållna.
+            © {new Date().getFullYear()} Fardowsa. Alla rättigheter förbehållna.
           </p>
           <div className="flex items-center gap-6">
             <a
