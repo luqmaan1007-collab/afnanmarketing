@@ -13,6 +13,7 @@ import {
   ExternalLink,
   Send,
   CheckCircle2,
+  GraduationCap,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
@@ -106,9 +107,27 @@ function Hero() {
 }
 
 function About() {
+  const credentials = [
+    {
+      icon: GraduationCap,
+      title: "Privatutbildning",
+      description: "Genomförd utbildning hos Online Business Academy",
+    },
+    {
+      icon: Users,
+      title: "Personligt mentorskap",
+      description: "1:1-guidning inom marknadsföring och strategi",
+    },
+    {
+      icon: Sparkles,
+      title: "Lärare & mentor",
+      description: "Elika Selfjord, Online Business Academy",
+    },
+  ];
+
   return (
     <section className="bg-card px-6 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
           Om mig
         </h2>
@@ -118,6 +137,29 @@ function About() {
           varje kund för att skapa kampanjer och strategier som levererar mätbart värde.
         </p>
         <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+          Jag har genomgått en privatutbildning och personligt mentorskap hos{" "}
+          <span className="font-medium text-gold">Online Business Academy</span>, med{" "}
+          <span className="font-medium text-gold">Elika Selfjord</span> som min lärare och
+          mentor. Den utbildningen ger mig aktuella metoder inom digital marknadsföring
+          som jag omsätter i praktiken för varje kund.
+        </p>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {credentials.map((credential) => (
+            <div
+              key={credential.title}
+              className="rounded-2xl border border-border bg-background p-6 text-left"
+            >
+              <div className="mb-4 inline-flex rounded-xl bg-secondary p-3 text-gold">
+                <credential.icon className="h-5 w-5" />
+              </div>
+              <h3 className="font-semibold text-ink">{credential.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                {credential.description}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
           Oavsett om du vill öka synligheten i sök, förbättra annonseringens lönsamhet
           eller bygga ett starkare varumärke, börjar vi alltid med dina affärsmål — och
           bygger en plan som fungerar i praktiken.
